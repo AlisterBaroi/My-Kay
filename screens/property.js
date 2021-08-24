@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, View, Button, Text, ScrollView } from 'react-native';
 
 export default function Property({ navigation, route }) {
-    const { projectName, projectAddress, ratings, price, imageDetail } = route.params;
+    const { projectName, projectAddress, ratings, price, imageDetail, agentName } = route.params;
     return (
         <ScrollView>
             <View style={{ borderBottomWidth: 1 }}>
@@ -31,7 +31,7 @@ export default function Property({ navigation, route }) {
                 </View>
                 <View style={{ alignItems: 'flex-end', paddingHorizontal: '6%', marginTop: -45 }}>
                     <Text style={styles.textDetails}>Property Agent</Text>
-                    <Text style={[styles.textName, { marginBottom: 0 }]}>Jason Brian</Text>
+                    <Text style={[styles.textName, { marginBottom: 0 }]}>{agentName}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', marginVertical: '5%', alignSelf: 'center', }}>
                     <View style={styles.button}>

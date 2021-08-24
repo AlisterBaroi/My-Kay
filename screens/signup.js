@@ -94,7 +94,7 @@ export default function Signup({ navigation }) {
                 <View style={styles.signupButton}>
                     <Button title='Signup' color='red' onPress={() => {
                         Keyboard.dismiss();
-                        Alert.alert('Success', 'Your feedback was submitted successfully.');
+                        Alert.alert('Success', 'Your sign up is successful');
                         navigation.navigate('Signup');
                     }} />
                 </View>

@@ -2,15 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AuthScreen from './route/rootRoute';
-import Home from './screens/home';
-import Projects from './screens/projects';
-import Chat from './screens/chat';
-import News from './screens/news';
+import About from './screens/about';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <AuthScreen />
+      <About />
 
       <StatusBar style="auto" />
     </View>

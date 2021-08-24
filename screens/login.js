@@ -1,15 +1,12 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { AuthContext } from './../components/context';
-import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import users from './../models/userData';
 
 export default function Login({ navigation, route }) {
 
     const { logIn } = React.useContext(AuthContext);
-    // const [userName, setUserName] = React.useState();
-    // const [userPassword, setUserPassword] = React.useState();
 
     const [data, setData] = React.useState({
         username: '',
@@ -42,7 +39,7 @@ export default function Login({ navigation, route }) {
             return username == item.username && password == item.password;
         });
         if (data.username.length == 0 || data.password.length == 0) {
-            Alert.alert('Wrong Input', 'Email or password field cannot be empty', [{ text: 'Okay' }]);
+            Alert.alert('Warning', 'Email or password field cannot be empty', [{ text: 'Okay' }]);
             return;
         }
 
@@ -121,23 +118,12 @@ export default function Login({ navigation, route }) {
                 }}>
                     <Text style={styles.signupButton} >SIGNUP</Text>
                 </TouchableOpacity>
-                {/* {data.isValidUserName ? //null
-                    <View style={{ marginBottom: '-10%', }}></View>
-                    :
-                    <View style={{ marginBottom: '-10%', }}></View>
-                }
-                {data.isValidPassword ? //null
-                    <View style={{ marginBottom: '-10%', }}></View>
-                    :
-                    <View style={{ marginBottom: '-10%', }}></View>
-                } */}
                 <Text style={styles.bottomText}>MyKay Property Consultancy</Text>
             </View>
         </TouchableWithoutFeedback >
     )
 }
-let screenHeight = Dimensions.get('window').height;
-let screenWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
@@ -157,9 +143,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         borderBottomWidth: 1,
-        // marginBottom: '12%',
         paddingVertical: '2%',
-        // backgroundColor: 'yellow',
     },
     icon: {
         marginTop: '1%',

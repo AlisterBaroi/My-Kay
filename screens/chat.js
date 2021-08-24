@@ -24,7 +24,7 @@ export default function Chat({ navigation }) {
                                 <View>
                                     <Text style={styles.contactName}>{item.agentName}</Text>
                                     <View style={styles.detailsContainer}>
-                                        <Text style={styles.agentDetails}>{item.lastMessage}</Text>
+                                        <Text style={styles.contactDetails}>{item.lastMessage}</Text>
                                         <Text style={styles.contactTime}>{item.contactTime}</Text>
                                     </View>
                                 </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         width: '75%',
         height: 20,
         overflow: 'hidden',
-        paddingRight: 5,
+        paddingRight: 10,
     },
     contactTime: {
         // right: -(screenWidth * 0.2),

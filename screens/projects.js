@@ -1,36 +1,34 @@
 import React from 'react';
-import { StyleSheet, Image, View, FlatList, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Image, View, FlatList, Text, TouchableOpacity } from 'react-native';
 import projectDetails from './../models/projectAgentData'; //import data here
 
 export default function Projects({ navigation, route, }) {
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <FlatList
-                    data={projectDetails}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.mainContainer} onPress={() => {
-                            navigation.navigate('Property', item);
-                        }
-                        }>
-                            <View >
-                                <Image style={styles.propertyImage} source={item.imageDetail} />
-                                <View style={styles.textContainer}>
-                                    <View style={styles.textLeft}>
-                                        <Text style={styles.textName}>{item.projectName}</Text>
-                                        <Text style={styles.textDetails}>{item.projectAddress}</Text>
-                                        <Text style={styles.textDetails}>Rating: {item.ratings}/5 stars</Text>
-                                    </View>
-                                    <View style={styles.textRight}>
-                                        <Text style={styles.textPrice}>{item.price}</Text>
-                                    </View>
+        <View style={styles.container}>
+            <FlatList
+                data={projectDetails}
+                renderItem={({ item }) => (
+                    <TouchableOpacity style={styles.mainContainer} onPress={() => {
+                        navigation.navigate('Property', item);
+                    }
+                    }>
+                        <View >
+                            <Image style={styles.propertyImage} source={item.imageDetail} />
+                            <View style={styles.textContainer}>
+                                <View style={styles.textLeft}>
+                                    <Text style={styles.textName}>{item.projectName}</Text>
+                                    <Text style={styles.textDetails}>{item.projectAddress}</Text>
+                                    <Text style={styles.textDetails}>Rating: {item.ratings}/5 stars</Text>
+                                </View>
+                                <View style={styles.textRight}>
+                                    <Text style={styles.textPrice}>{item.price}</Text>
                                 </View>
                             </View>
-                        </TouchableOpacity>
-                    )
-                    } />
-            </View >
-        </ScrollView>
+                        </View>
+                    </TouchableOpacity>
+                )
+                } />
+        </View >
     )
 }
 

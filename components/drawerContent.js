@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
+import { Title, Caption, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { AuthContext } from './context';
@@ -64,7 +64,6 @@ export default function DrawerContent(props) {
                                 color={'grey'} size={26} />)}
                             label='Send Feedback'
                             onPress={() => { props.navigation.navigate('SendFeedback') }} />
-
                     </Drawer.Section>
 
                 </View>

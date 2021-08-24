@@ -1,6 +1,6 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -27,8 +27,6 @@ import ChatHeader from './../components/chatHeader';
 import PropertyHeader from './../components/propertyHeader';
 import { AuthContext } from './../components/context';
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
-// import Users from './../models/users';
-
 
 const HomeStack = createStackNavigator();
 const ChatStack = createStackNavigator();
@@ -42,7 +40,6 @@ const SettingsStack = createStackNavigator();
 const SendFeedbackStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const AuthStack = createStackNavigator();
-
 
 const HomeStackScreen = ({ navigation }) => (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{
@@ -121,6 +118,7 @@ const TabsScreen = () => {
                     tabBarLabel: 'Chat',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="message-text" color={color} size={26} />),
+
                 }} />
             <Tabs.Screen name="Projects" component={ProjectStackScreen}
                 options={{
@@ -239,8 +237,6 @@ export default function AuthScreen() {
             } catch (e) {
                 console.log(e);
             }
-            // }
-            // console.log('user token: ', userToken);
             dispatch({ type: 'LOGIN', id: userName, token: userToken })
         },
         logOut: async () => {

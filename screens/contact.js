@@ -1,69 +1,82 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Contact({ navigation }) {
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            Keyboard.dismiss();
-        }}>
-            <View style={styles.container}>
-                <Text style={styles.title}>Contact</Text>
-                <TextInput style={styles.textInput} placeholder='Enter Registered Email' />
-                <View style={styles.resetButton}>
-                    <Button title='Reset Password' color='red' onPress={() => {
-                        // navigation.navigate('Contact');
-                    }} />
+
+        <View style={styles.container}>
+            <View style={styles.topContainer}>
+
+                <Text style={styles.title}>MyKay</Text>
+                <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginBottom: 5, borderBottomColor: 'white', paddingBottom: 2, }}>
+                    <MaterialCommunityIcons name="clock-time-eight" size={22} color="white" />
+                    <Text style={styles.officeHours}>Office Hours:</Text>
                 </View>
-                <Text style={styles.remember}>Remember Password?</Text>
-                <TouchableOpacity onPress={() => {
-                    // navigation.navigate('Login');
-                }}>
-                    <Text style={styles.loginButton}>LOGIN</Text>
-                </TouchableOpacity>
+                <Text style={[styles.timing, { textDecorationLine: 'underline', fontWeight: 'bold' }]}>Kuala Lumpur Brach</Text>
+                <Text style={styles.timing}>9:00 am - 7:00 pm, (Monday - Friday)</Text>
+                <Text style={styles.timing}>10:00 am - 3:00 pm, (Saturday)</Text>
+
+                <Text style={[styles.timing, { marginTop: '4%', textDecorationLine: 'underline', fontWeight: 'bold' }]}>Other Braches</Text>
+                <Text style={[styles.timing, { marginVertical: '2%' }]}>9:00 am - 7:00 pm, (Monday - Friday)</Text>
+            </View >
+            <TouchableOpacity style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', borderColor: 'lightgrey', borderBottomWidth: 1 }}>
+                <MaterialCommunityIcons name="phone" size={40} color="red" />
+                <View style={{ paddingHorizontal: '7%', }}>
+                    <Text style={[styles.officeHours, { color: 'black', marginLeft: 0 }]}>Call for free</Text>
+                    <Text>(+60) 100-1001</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', borderColor: 'lightgrey', borderBottomWidth: 1 }}>
+                <MaterialCommunityIcons name="message" size={40} color="red" />
+                <View style={{ paddingHorizontal: '7%', }}>
+                    <Text style={[styles.officeHours, { color: 'black', marginLeft: 0 }]}>Chat with us</Text>
+                    <Text>Messenger, WhatsApp</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', borderColor: 'lightgrey', borderBottomWidth: 1 }}>
+                <MaterialCommunityIcons name="at" size={40} color="red" />
+                <View style={{ paddingHorizontal: '7%', }}>
+                    <Text style={[styles.officeHours, { color: 'black', marginLeft: 0 }]}>Email us</Text>
+                    <Text>support@kykay.com</Text>
+                </View>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row', paddingHorizontal: '5%', paddingVertical: '5%', }}>
+                <MaterialCommunityIcons name="map-marker" size={40} color="red" />
+                <View style={{ paddingHorizontal: '7%', }}>
+                    <Text style={[styles.officeHours, { color: 'black' }]}>Location:</Text>
+                    <Text style={[styles.timing, { textDecorationLine: 'underline', fontWeight: 'bold', color: 'black' }]}>Head Office</Text>
+                    <Text style={[styles.timing, { color: 'black', paddingRight: '15%', }]}>Jalan Pinang, Kuala Lumpur City Centre, 50088 Kuala Lumpur, Wilayah {'\n'}Persekutuan Kuala Lumpur</Text>
+                </View>
             </View>
-        </TouchableWithoutFeedback>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 50,
-        paddingHorizontal: 40,
-        backgroundColor: '#fff',
         height: '100%',
+        width: '100%',
     },
     title: {
         fontSize: 50,
         fontWeight: 'bold',
-        color: 'red',
-        textAlign: 'center',
-        marginBottom: 50,
+        color: 'white',
+        marginBottom: '5%',
     },
-    textInput: {
-        borderBottomWidth: 1,
-        marginVertical: 25,
-        paddingHorizontal: 5,
-        fontSize: 17,
+    topContainer: {
+        paddingTop: '5%',
+        paddingHorizontal: '20%',
+        backgroundColor: 'red',
+        height: '41%',
     },
-    resetButton: {
-        marginTop: 20,
-        marginBottom: 20,
+    officeHours: {
+        fontSize: 18,
+        color: 'white',
     },
-    remember: {
-        textAlign: 'center',
-        marginTop: 330,
-        marginBottom: 10,
-        color: 'grey',
-    },
-    loginButton: {
-        marginTop: 10,
-        marginBottom: 50,
-        borderWidth: 2,
-        paddingTop: 6,
-        paddingBottom: 3,
-        borderColor: 'red',
-        textAlign: 'center',
-        color: 'red',
-        fontSize: 14,
+    timing: {
+        color: 'white',
+        marginVertical: '1%',
     },
 });

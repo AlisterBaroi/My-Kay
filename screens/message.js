@@ -1,32 +1,79 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Message({ navigation, route }) {
-    const { agentName, agentDetails, lastMessage, contactTime } = route.params;
-    return (
-        <TouchableWithoutFeedback onPress={() => {
-            Keyboard.dismiss();
-        }}>
-            <View style={styles.container}>
-                <Text style={styles.title}>Contact</Text>
-                <Text>{agentName}</Text>
-                <Text>{agentDetails}</Text>
-                <Text>{lastMessage}</Text>
-                <Text>{contactTime}</Text>
-                <TextInput style={styles.textInput} placeholder='Enter Registered Email' />
-                <View style={styles.resetButton}>
-                    <Button title='Reset Password' color='red' onPress={() => {
-                        // navigation.navigate('Project');
-                    }} />
+    const { agentName, lastMessage } = route.params; // data from chat page routed to here
+
+    const [messages, setMessages] = React.useState([]);
+    React.useEffect(() => {
+        setMessages([
+            {
+                _id: 1,
+                text: lastMessage,
+                createdAt: new Date(),
+                user: {
+                    _id: 2,
+                    name: agentName,
+                    avatar: () => (<MaterialCommunityIcons name="account-circle" size={35} color="grey" />),
+                },
+            },
+        ])
+    }, [])
+    const onSend = React.useCallback((messages = []) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }, [])
+
+    const renderBubble = (props) => {
+        return (<Bubble
+            {...props}
+            wrapperStyle={{
+                right: { backgroundColor: 'red', paddingVertical: 4, paddingHorizontal: 6, },
+                left: { backgroundColor: 'lightgrey', }
+            }}
+            textStyle={{
+                right: { color: 'white', },
+                left: { color: 'black', }
+            }}
+        />)
+    }
+
+    const renderSend = (props) => {
+        return (
+            <Send {...props}>
+                <View>
+                    <MaterialCommunityIcons name="send" style={{ marginBottom: '3%', marginRight: '2%' }} size={40} color="red" />
                 </View>
-                <Text style={styles.remember}>Remember Password?</Text>
-                <TouchableOpacity onPress={() => {
-                    // navigation.navigate('Home');
-                }}>
-                    <Text style={styles.loginButton}>LOGIN</Text>
-                </TouchableOpacity>
-            </View>
-        </TouchableWithoutFeedback>
+
+            </Send>
+        )
+    }
+
+
+    return (
+
+        <GiftedChat
+            messages={messages}
+            onSend={messages => onSend(messages)}
+            user={{
+                _id: 1,
+            }}
+            renderBubble={renderBubble}
+            alwaysShowSend
+            renderSend={renderSend}
+        />
+        // <TouchableWithoutFeedback onPress={() => {
+        //     Keyboard.dismiss();
+        // }}>
+        //     <View style={styles.container}>
+        //         <Text style={styles.title}>Contact</Text>
+        //         <Text>{agentName}</Text>
+        //         <Text>{agentDetails}</Text>
+        //         <Text>{lastMessage}</Text>
+        //         <Text>{contactTime}</Text>
+        //     </View>
+        // </TouchableWithoutFeedback>
     )
 }
 

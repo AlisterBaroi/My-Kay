@@ -1,9 +1,10 @@
 const users = [
     {
         id: 1,
-        username: 'user1@email.com',
+        username: 'alister.baroi@gmail.com',
+        // 'user1@email.com',
         name: 'user1',
-        password: 'password',
+        password: 'asdfgh',
         userToken: 'token123'
     },
     {

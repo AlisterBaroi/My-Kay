@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { AuthContext } from './../components/context';
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
-// import Users from './../model/users';
+import users from './../models/userData';
 
 export default function Login({ navigation, route }) {
 
@@ -12,29 +12,62 @@ export default function Login({ navigation, route }) {
     // const [userPassword, setUserPassword] = React.useState();
 
     const [data, setData] = React.useState({
-        email: '',
+        username: '',
         password: '',
-        checktxtEmailChange: false,
+        checktxtUserNameChange: false,
         secureTextEntry: true,
+        isValidUserName: true,
+        isValidPassword: true,
+
     });
-    const txtEmailChange = (val) => {
-        if (val.length !== 0) {
-            setData({ ...data, email: val, checktxtEmailChange: true, });
+    const txtUserNameChange = (val) => {
+        if (val.trim().length >= 4) {
+            setData({ ...data, username: val, checktxtUserNameChange: true, isValidUserName: true, });
         }
         else {
-            setData({ ...data, email: val, checktxtEmailChange: false, });
+            setData({ ...data, username: val, checktxtUserNameChange: false, isValidUserName: false, });
         }
     };
     const handlePasswordChange = (val) => {
-        setData({ ...data, password: val, });
+        if (val.trim().length >= 8) { setData({ ...data, password: val, isValidPassword: true, }); }
+        else { setData({ ...data, password: val, isValidPassword: false, }); }
     };
     const updateSecureTxt = () => {
         setData({ ...data, secureTextEntry: !data.secureTextEntry, });
     };
-    const loginHandle = (username, password) => {
-        logIn(username, password);
-    };
 
+
+    const loginHandle = (username, password) => {
+        const foundUser = users.filter(item => {
+            return username == item.username && password == item.password;
+        });
+        if (data.username.length == 0 || data.password.length == 0) {
+            Alert.alert('Wrong Input', 'Email or password field cannot be empty', [{ text: 'Okay' }]);
+            return;
+        }
+
+        if (foundUser.length == 0) {
+            Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+                { text: 'Okay' }
+            ]);
+            return;
+        }
+
+        logIn(foundUser);
+    };
+    const handleValidUser = (val) => {
+        if (val.trim().length >= 4) {
+            setData({
+                ...data,
+                isValidUserName: true
+            });
+        } else {
+            setData({
+                ...data,
+                isValidUserName: false
+            });
+        }
+    }
     return (
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
@@ -46,12 +79,18 @@ export default function Login({ navigation, route }) {
                     <Feather style={styles.icon} name="user" size={20} color="grey" />
                     <TextInput style={styles.textInput} placeholder='Enter Email'
                         autoCapitalize='none'
-                        onChangeText={(val) => txtEmailChange(val)}
+                        onChangeText={(val) => txtUserNameChange(val)}
+                        onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
                     />
-                    {data.checktxtEmailChange ?
+                    {data.checktxtUserNameChange ?
                         <Feather style={styles.icon} name="check" size={20} color="grey" />
                         : null}
                 </View>
+                {data.isValidUserName ? //null
+                    <View style={{ marginBottom: '10%', }}></View>
+                    :
+                    < Text style={{ marginBottom: '10%', color: 'red', marginLeft: '7%', }} >Email must be valid and registered</Text>
+                }
                 <View style={styles.inputWrapper}>
                     <Feather style={styles.icon} name="lock" size={20} color="grey" />
                     <TextInput style={styles.textInput} placeholder='Enter Password'
@@ -66,26 +105,42 @@ export default function Login({ navigation, route }) {
                         }
                     </TouchableOpacity>
                 </View>
+                {data.isValidPassword ? //null
+                    <View style={{ marginBottom: '10%', }}></View>
+                    :
+                    <Text style={{ marginBottom: '10%', color: 'red', marginLeft: '7%', }} >Password must 8 characters long</Text>
+                }
                 <TouchableOpacity onPress={() => { }}>
                     <Text style={styles.forgotPass}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <View style={styles.loginButton}>
-                    <Button title='Login' color='red' onPress={() => { loginHandle(data.email, data.password); }} />
+                    <Button title='Login' color='red' onPress={() => { loginHandle(data.username, data.password); }} />
                 </View>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate('Signup');
                 }}>
                     <Text style={styles.signupButton} >SIGNUP</Text>
                 </TouchableOpacity>
-
+                {/* {data.isValidUserName ? //null
+                    <View style={{ marginBottom: '-10%', }}></View>
+                    :
+                    <View style={{ marginBottom: '-10%', }}></View>
+                }
+                {data.isValidPassword ? //null
+                    <View style={{ marginBottom: '-10%', }}></View>
+                    :
+                    <View style={{ marginBottom: '-10%', }}></View>
+                } */}
                 <Text style={styles.bottomText}>MyKay Property Consultancy</Text>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback >
     )
 }
-
+let screenHeight = Dimensions.get('window').height;
+let screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'column',
         paddingTop: '20%',
         paddingHorizontal: '10%',
         backgroundColor: '#fff',
@@ -102,7 +157,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         borderBottomWidth: 1,
-        marginBottom: '12%',
+        // marginBottom: '12%',
         paddingVertical: '2%',
         // backgroundColor: 'yellow',
     },
@@ -133,7 +188,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     bottomText: {
-        marginTop: '78%',
+        position: 'absolute',
+        marginTop: '235%',
         marginBottom: '3%',
         alignSelf: 'center',
         color: 'grey',

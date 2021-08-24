@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default function Message({ navigation, route }) {
-    const { contactName, contactDetails, lastMessage, contactTime } = route.params;
+    const { agentName, agentDetails, lastMessage, contactTime } = route.params;
     return (
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
         }}>
             <View style={styles.container}>
                 <Text style={styles.title}>Contact</Text>
-                <Text>{contactName}</Text>
-                <Text>{contactDetails}</Text>
+                <Text>{agentName}</Text>
+                <Text>{agentDetails}</Text>
                 <Text>{lastMessage}</Text>
                 <Text>{contactTime}</Text>
                 <TextInput style={styles.textInput} placeholder='Enter Registered Email' />

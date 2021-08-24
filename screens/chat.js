@@ -1,20 +1,10 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import projectDetails from './../models/projectAgentData'; //import data here
 
 
 export default function Chat({ navigation }) {
-
-    const [chatContacts, setChatContacts] = React.useState([
-        { contactName: 'Jean Tai', contactDetails: 'Sales Agent of Property 1', lastMessage: 'hi, how are you', contactTime: '12:45 am' },
-        { contactName: 'Loo Weiler', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-        { contactName: 'Jason Brian', contactDetails: 'Sales Agent of Property 2', lastMessage: 'Yes, its available fro now, but cant gurantee till when will stay free', contactTime: '12:45 am' },
-        { contactName: 'Lao Han', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-        { contactName: 'Xian Kai', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-        { contactName: 'Chew Lim', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-        { contactName: 'Denes Waren', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-        { contactName: 'Sunny Woo', contactDetails: 'Sales Agent of Property 3', lastMessage: 'Sorry, its not available now.', contactTime: '12:45 am' },
-    ]);
     return (
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
@@ -24,7 +14,7 @@ export default function Chat({ navigation }) {
                     <TextInput style={styles.searchInput} placeholder='Search Contacts' />
                 </View>
                 <FlatList
-                    data={chatContacts}
+                    data={projectDetails}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => {
                             navigation.navigate('Message', item);
@@ -32,9 +22,9 @@ export default function Chat({ navigation }) {
                             <View style={styles.contactContainer}>
                                 <MaterialIcons style={styles.contactImage} name="person-outline" size={30} color="black" />
                                 <View>
-                                    <Text style={styles.contactName}>{item.contactName}</Text>
+                                    <Text style={styles.contactName}>{item.agentName}</Text>
                                     <View style={styles.detailsContainer}>
-                                        <Text style={styles.contactDetails}>{item.lastMessage}</Text>
+                                        <Text style={styles.agentDetails}>{item.lastMessage}</Text>
                                         <Text style={styles.contactTime}>{item.contactTime}</Text>
                                     </View>
                                 </View>

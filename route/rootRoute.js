@@ -27,6 +27,7 @@ import ChatHeader from './../components/chatHeader';
 import PropertyHeader from './../components/propertyHeader';
 import { AuthContext } from './../components/context';
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
+// import Users from './../models/users';
 
 
 const HomeStack = createStackNavigator();
@@ -191,9 +192,6 @@ const SendFeedbackStackScreen = ({ navigation }) => (
 );
 
 export default function AuthScreen() {
-    // const [isLoading, setIsLoading] = React.useState(true);
-    // const [userToken, setUserToken] = React.useState(null);
-
     const initialLoginState = {
         isLoading: true,
         userName: null,
@@ -233,25 +231,19 @@ export default function AuthScreen() {
     };
     const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
     const authContext = React.useMemo(() => ({
-        logIn: async (userName, password) => {
-            // setUserToken('asd');
-            // setIsLoading(false);
-            let userToken;
-            userToken = null;
-            if (userName == 'Alister' && password == '123') {
-                userToken = 'asd';
-                try {
-                    await AsyncStorage.setItem('userToken', userToken);
-                } catch (e) {
-                    console.log(e);
-                }
+        logIn: async (foundUser) => {
+            const userToken = String(foundUser[0].userToken);
+            const userName = String(foundUser[0].username);
+            try {
+                await AsyncStorage.setItem('userToken', userToken);
+            } catch (e) {
+                console.log(e);
             }
-            console.log('user token: ', userToken);
+            // }
+            // console.log('user token: ', userToken);
             dispatch({ type: 'LOGIN', id: userName, token: userToken })
         },
         logOut: async () => {
-            // setUserToken(null);
-            // setIsLoading(false);
             try {
                 await AsyncStorage.removeItem('userToken');
             } catch (e) {
@@ -266,19 +258,16 @@ export default function AuthScreen() {
         },
     }), []);
 
-
-
     React.useEffect(() => {
         setTimeout(async () => {
-            // setIsLoading(false);
             let userToken;
             userToken = null;
             try {
                 userToken = await AsyncStorage.getItem('userToken');
-            } catch (e) {
+            }
+            catch (e) {
                 console.log(e);
             }
-            // console.log('user token: ', userToken);
             dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
         }, 1000);
     }, []);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 export default function Signup({ navigation }) {
@@ -91,19 +91,18 @@ export default function Signup({ navigation }) {
                         }
                     </TouchableOpacity>
                 </View>
-                {/* <TextInput style={styles.textInput} placeholder='User Name' />
-                <TextInput style={styles.textInput} placeholder='Password'
-                    secureTextEntry={true} />
-                <TextInput style={styles.textInput} placeholder='Comfirm Password'
-                    secureTextEntry={true} /> */}
                 <View style={styles.signupButton}>
-                    <Button title='Signup' color='red' />
+                    <Button title='Signup' color='red' onPress={() => {
+                        Keyboard.dismiss();
+                        Alert.alert('Success', 'Your feedback was submitted successfully.');
+                        navigation.navigate('Signup');
+                    }} />
                 </View>
                 <Text style={styles.acc}>Have an account?</Text>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity style={styles.loginButton} onPress={() => {
                     navigation.navigate('Login');
                 }}>
-                    <Text style={styles.loginButton}>LOGIN</Text>
+                    <Text style={styles.loginButtonText}>LOGIN</Text>
                 </TouchableOpacity>
             </View >
         </TouchableWithoutFeedback>
@@ -144,17 +143,23 @@ const styles = StyleSheet.create({
         marginTop: '4%',
     },
     acc: {
-        textAlign: 'center',
-        marginTop: '54%',
+        position: 'absolute',
+        marginTop: '218%',
+        alignSelf: 'center',
         marginBottom: '5%',
         color: 'grey',
     },
     loginButton: {
+        position: 'absolute',
+        marginTop: '230%',
+        alignSelf: 'center',
+        width: '100%',
+    },
+    loginButtonText: {
         borderWidth: 2,
         borderColor: 'red',
         paddingTop: '2%',
         paddingBottom: '1%',
-        marginBottom: '3%',
         textAlign: 'center',
         color: 'red',
         fontSize: 14,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, Button, Text, ScrollView } from 'react-native';
+import { StyleSheet, Image, View, Text, ScrollView } from 'react-native';
 
 export default function NewsArticle({ navigation, route }) {
     const { newsTitle, projectAddress, imageDetail } = route.params;

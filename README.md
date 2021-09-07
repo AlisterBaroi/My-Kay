@@ -14,7 +14,7 @@ Afterwards, open the project folder in CMD/terminal and run the following comman
 npm install
 ```
 
-Lastly, in the same terminal, open the expo debug tool (to run the app in emulator/device) by running the command:
+Lastly, in the same terminal, open the expo debug tool (to run the app in emulator/device) with the command:
 ```
 npm start
 ```

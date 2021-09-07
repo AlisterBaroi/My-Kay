@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "My-Kay",
+    "name": "MyKay",
     "slug": "My-Kay",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "Mykay.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"

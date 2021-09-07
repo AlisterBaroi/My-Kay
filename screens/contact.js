@@ -38,7 +38,7 @@ export default function Contact({ navigation }) {
                 <MaterialCommunityIcons name="at" size={40} color="red" />
                 <View style={{ paddingHorizontal: '7%', }}>
                     <Text style={[styles.officeHours, { color: 'black', marginLeft: 0 }]}>Email us</Text>
-                    <Text>support@kykay.com</Text>
+                    <Text>support@mykay.com</Text>
                 </View>
             </TouchableOpacity>
 

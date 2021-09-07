@@ -26,7 +26,7 @@ export default function Login({ navigation, route }) {
         }
     };
     const handlePasswordChange = (val) => {
-        if (val.trim().length >= 8) { setData({ ...data, password: val, isValidPassword: true, }); }
+        if (val.trim().length >= 4) { setData({ ...data, password: val, isValidPassword: true, }); }
         else { setData({ ...data, password: val, isValidPassword: false, }); }
     };
     const updateSecureTxt = () => {
@@ -105,7 +105,7 @@ export default function Login({ navigation, route }) {
                 {data.isValidPassword ? //null
                     <View style={{ marginBottom: '10%', }}></View>
                     :
-                    <Text style={{ marginBottom: '10%', color: 'red', marginLeft: '7%', }} >Password must 8 characters long</Text>
+                    <Text style={{ marginBottom: '10%', color: 'red', marginLeft: '7%', }} >Password must be 4 characters long</Text>
                 }
                 <TouchableOpacity onPress={() => { }}>
                     <Text style={styles.forgotPass}>Forgot Password?</Text>
